@@ -1,0 +1,85 @@
+:root {	
+
+	@include bp($laptop, min) {
+		--gl-indent: 4rem;
+		--height-header: 6rem;
+	}
+
+	@include bp($laptop) {
+		--gl-indent: 2rem;
+		--height-header: 5rem;
+	}
+}
+
+html {
+	height: 100%;
+	font-family: $font_1;
+	line-height: 1.33;	
+
+	@include bp($laptop, min) {
+		font-size: calc(100vw / 1200 * 10);
+	}
+	
+	@include bp($laptop, $small) {
+		font-size: 10px;
+	}
+	
+	@include bp($small) {
+		font-size: calc(100vw / 375 * 10);
+	}
+
+}
+
+body {
+	position: relative;
+	display: block;
+
+	height: 100%;
+	margin: auto;
+	color: $colorTextBase;	
+
+	&.body--open_menu_state {
+		overflow: hidden;
+	}
+}
+
+.wrapper {
+	position: relative;
+
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	height: auto !important;
+
+	overflow: hidden;
+}
+
+.base {
+	width: 100%;
+	position: relative;
+	padding: var(--height-header) 0 0;
+
+	background-color: $bodyBg;
+
+	flex: 1 0 auto;
+}
+
+.section {
+	position: relative;
+	min-height: 100vh;
+
+	@include bp($tablet, min) {
+		padding: 5rem var(--gl-indent);
+	}
+
+	@include bp($tablet) {
+		padding: 3rem var(--gl-indent);
+	}
+}
+
+[class*="__container"] {
+	width: 100%;
+	max-width: $pageWidth;
+	margin: 0 auto;
+}

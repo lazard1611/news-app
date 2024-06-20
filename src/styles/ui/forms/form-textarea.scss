@@ -1,0 +1,13 @@
+@import "form-default-input";
+
+.form_textarea__label {
+	@include form_el_label;
+}
+
+.form_textarea__element {
+	@include form_el_default;
+
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	height: 8rem;
+}

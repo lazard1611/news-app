@@ -1,0 +1,42 @@
+.demo {	
+	text-align: center;
+	user-select: none;
+
+	h1 {
+		@include h1;
+
+		&:not(:last-child) {
+			margin-bottom: 3rem;
+		}
+	}
+
+	p {
+		@include h5;
+		@include title_offset;
+	}
+}
+
+.demo__pic {
+	width: 100%;
+	height: 100%;
+}
+
+.demo_img {
+	display: block;
+	height: 100%;
+	width: 100%;
+	object-fit: contain;
+}
+
+.btn {
+	@include btn_size_normal;
+}
+
+.demo__btn_get {
+	@include btn_style_blue;
+}
+
+.demo__btn_add {
+	@include btn_style_gray;
+}
+

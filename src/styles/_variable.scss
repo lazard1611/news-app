@@ -1,0 +1,45 @@
+//---------------------------------------------fonts
+$font_1: 'Roboto', sans-serif;
+$fontSizeBase: 1.6rem;
+//---------------------------------------------fonts###
+//---------------------------------------------layout
+$pageWidth: 95rem;
+//---------------------------------------------layout###
+//---------------------------------------------colors
+$white: #fff;
+$black: #000000;
+$gray: #434343;
+
+$pink: #FADADD;
+$blue: #D0E8F2;
+$green: #E0F2E9;
+$yellow: #FFFACD;
+$lavender: #E6E6FA;
+$peach: #FFE5B4;
+
+$colorTextBase: $black;
+$colorLinkBase: #3856E5;
+$bodyBg: $green;
+//---------------------------------------------colors###
+//---------------------------------------------global values
+$glRadius: 1rem;
+$boxShadow: 0.4rem 0.4rem 0.8rem rgba($black, 0.5);
+//---------------------------------------------global values###
+//---------------------------------------------media points
+$desktopLg: 1920px;
+$desktop: 1440px;
+$laptop: 1200px;
+$tabletPortrait: 991px;
+$tablet: 768px;
+$small: 375px;
+//---------------------------------------------media points###
+//---------------------------------------------form style
+$input_height: 2.8rem;
+$input_offset: 1rem;
+$input_font_size: $fontSizeBase;
+$input_text_color: $gray;
+$input_border_color: $gray;
+$input_radius: 0.4rem;
+$input_border_color_active: $black;
+$input_placeholder_color: $gray;
+//---------------------------------------------form style###

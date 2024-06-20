@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+<header class="header">
+	<div class="header__container">
+		<h1 class="header__title">NEWS</h1>	
+	</div>	
+</header>
+
+<div class="wrapper">
+	<div class="base">
+
+		<section class="section">
+			<div class="section__container">
+				<picture style="display: none;">
+                    <img src='./img/test.jpg' alt='image' class="news_item__img">
+                </picture>	
+				<form name="newsPst" class="news__form">
+					<div class="news__title">Search news</div>
+					<label class="news__label">Choose your country</label>
+					<div class="news__select_wrap">
+						<select name="select" class="news__select js-select-country">
+							<option value="uk">Ukraine</option>	
+							<option value="us">Unated States</option>	
+						</select>	
+					</div>
+					<div class="news__input_wrap">
+						<input 
+							type="text"
+							name="search"
+							placeholder="Search..."						
+							class="news__input form_input__element js-search"
+						>
+					</div>
+					<div class="news__btn_wrap">
+						<button class="btn news__btn js-news-btn">
+							Search
+						</button>
+					</div>
+				</form>
+
+				<div class="news__posts js-posts-wrap">
+									
+				</div>
+			</div>
+		</section>
+		
+	</div>
+	<footer class="footer"></footer>
+</div>
+</body>
+</html>
+

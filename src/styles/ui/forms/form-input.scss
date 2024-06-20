@@ -1,0 +1,9 @@
+@import "form-default-input";
+
+.form_input__label {
+	@include form_el_label;
+}
+
+.form_input__element {
+	@include form_el_default;
+}

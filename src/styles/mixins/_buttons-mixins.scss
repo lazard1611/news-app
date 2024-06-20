@@ -1,0 +1,77 @@
+@mixin st_btn {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+
+	text-align: center;
+	white-space: nowrap;
+	font-family: $font_1;
+
+	cursor: pointer;
+	border: transparent;
+
+	&[type='submit'] {
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		appearance: none;
+	}
+
+	&:hover,
+	&:focus {
+		text-decoration: none;
+	}
+}
+
+//color mixins:
+@mixin btn_style_blue {
+	font-weight: 400;
+	color: $gray;
+	background-color: $blue;
+	transition: background-color 0.3s ease;
+	text-transform: uppercase;
+
+	@include st_btn;
+
+	&:hover {
+		background-color: darken($blue, 10%);
+	}
+}
+
+@mixin btn_style_gray {
+	font-weight: 400;
+	color: $white;
+	background-color: $gray;
+	transition: background-color 0.3s ease;
+	text-transform: uppercase;
+
+	@include st_btn;
+
+	&:hover {
+		background-color: darken(gray, 10%);
+	}
+}
+
+
+//size mixins:
+@mixin btn_size_normal {
+	padding: 0 2rem;
+
+	@include bp($tablet, min) {
+		height: 4rem;
+
+		line-height: 4rem;
+		font-size: 1.8rem;
+
+		border-radius: r(20);
+	}
+
+	@include bp($tablet) {
+		height: 3.2rem;
+
+		line-height: 3.2rem;
+		font-size: 1.6rem;
+
+		border-radius: 1.6rem;
+	}
+}
+

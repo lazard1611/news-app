@@ -1,0 +1,38 @@
+.header {
+	z-index: 100;
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	height: var(--height-header);
+	width: 100%;
+
+	padding: 0 var(--gl-indent);
+	display: flex;
+	align-items: center;
+
+	background-color: $peach;
+    transition: transform 0.5s ease;
+
+    &.header--scroll_state {
+        transform: translateY(-100%);
+        box-shadow: 0 0 1.6rem -2px rgba(0, 0, 0, 0.3);
+    }
+
+    &:not(.header--pos_state) {
+        transform: translateY(0%);
+    }   
+}
+
+.header__container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header__title {
+	font-size: 2.4rem;
+	font-weight: 700;
+}
+
+
