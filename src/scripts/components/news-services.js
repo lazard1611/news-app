@@ -4,11 +4,26 @@ const newsServices = () => {
         search: '.js-search',
         btn: '.js-news-btn',
         postWrap: '.js-posts-wrap',
+        message: '.js-news-message',
+        spinner: '.js-spinner',
     }
 
+    const CLASSES = {
+        active: 'active'
+    }
+
+    const $form  = document.forms['newsPost']
     const $select = document.querySelector(SELECTORS.select);
     const $search = document.querySelector(SELECTORS.search);
-    const $btnSubmit = document.querySelector(SELECTORS.btn);      
+    const $btnSubmit = document.querySelector(SELECTORS.btn);    
+    const $message = document.querySelector(SELECTORS.message);
+    const $spinner = document.querySelector(SELECTORS.spinner);
+    const $postWrap = document.querySelector(SELECTORS.postWrap);    
+    
+    $form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        loadNews();
+    });
 
     const customHttp = () => {
         return {
@@ -83,6 +98,18 @@ const newsServices = () => {
         }
     })();
 
+    const showSpinner = () => {
+        if (!$spinner) return;
+        $spinner.classList.add(CLASSES.active);
+        $postWrap.style.display = 'none';
+    }
+
+    const hideSpinner = () => {
+        if (!$spinner) return;
+        $spinner.classList.remove(CLASSES.active);
+        $postWrap.style.display = 'grid';
+    }
+
     const newsTemplate = (newsItem) => {
         const { title, description, publishedAt, url, urlToImage } = newsItem;
 
@@ -95,14 +122,22 @@ const newsServices = () => {
                     <h4 class="news_item__title">${title || ''}</h4>
                     <p class="news_item__text">${description || ''}</p>
                 </div>
-                <time class="news_item__date">${publishedAt || ''}</time>
+                <div class="news_item__bottom">
+                    <time class="news_item__date">${publishedAt || ''}</time>
+                    <div class="news_item__bottom_text">read more</div>                    
+                </div>
             </a>	
         `
     } 
 
     const renderNews = (news) => {
-        const $postWrap = document.querySelector(SELECTORS.postWrap);  
+          
         if (!$postWrap) return;
+
+        if ($postWrap.children.length) {
+            clearContainer($postWrap);
+        }
+
         let fragment = '';
 
         news.forEach((newsItem) => {            
@@ -112,14 +147,48 @@ const newsServices = () => {
 
         $postWrap.insertAdjacentHTML('afterbegin', fragment);
     }
+
+    const showAlert = (msg) => {
+        $message.textContent = msg;
+
+        const $parentWrap = $message.parentElement;
+        $parentWrap.classList.add('visible');
+
+        setTimeout(() => {
+            $parentWrap.classList.remove('visible');
+        }, 3500);
+    }
     
     const onGetResponse = (err, res) => {
-        console.log(res);
+        hideSpinner();
+
+        if (err) {
+            showAlert(err);
+            return
+        }
+
+        if (!res.articles.length) {
+            showAlert('Not contents');
+            return
+        }
+
         renderNews(res.articles);
+    }
+
+    const clearContainer = (container) => {
+        container.innerHTML = '';
     }
     
     const loadNews = () => {
-        services.topHeadlines('ua', onGetResponse);
+        showSpinner();
+        const country = $select.value;        
+        const searchText = $search.value;        
+
+        if (!searchText) {
+            services.topHeadlines(country, onGetResponse);
+        } else {
+            services.everything(searchText, onGetResponse);
+        }        
     }
 
     loadNews();
