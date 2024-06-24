@@ -1,6 +1,7 @@
 const newsServices = () => {
     const SELECTORS = {
-        select: '.js-select-country',
+        selectCountry: '.js-select-country',
+        selectCategory: '.js-select-category',
         search: '.js-search',
         btn: '.js-news-btn',
         postWrap: '.js-posts-wrap',
@@ -9,18 +10,20 @@ const newsServices = () => {
     }
 
     const CLASSES = {
-        active: 'active'
+        active: 'active',
+        hidden: 'hidden'
     }
 
     const $form  = document.forms['newsPost']
-    const $select = document.querySelector(SELECTORS.select);
+    const $selectCountry = document.querySelector(SELECTORS.selectCountry);
+    const $selectCategory = document.querySelector(SELECTORS.selectCategory);
     const $search = document.querySelector(SELECTORS.search);
-    const $btnSubmit = document.querySelector(SELECTORS.btn);    
+    const $btnSubmit = document.querySelector(SELECTORS.btn);
     const $message = document.querySelector(SELECTORS.message);
     const $spinner = document.querySelector(SELECTORS.spinner);
-    const $postWrap = document.querySelector(SELECTORS.postWrap);    
-    
-    $form.addEventListener('submit', (e) => {
+    const $postWrap = document.querySelector(SELECTORS.postWrap);
+
+    $form.addEventListener('change', (e) => {
         e.preventDefault();
         loadNews();
     });
@@ -42,13 +45,13 @@ const newsServices = () => {
                     });
 
                     xhr.addEventListener('error', () => {
-                        cb(`Error. Status code: ${xhr.status}`, xhr);            
+                        cb(`Error. Status code: ${xhr.status}`, xhr);
                     });
 
                     xhr.send();
                 } catch(error) {
-                    cb(error);    
-                } 
+                    cb(error);
+                }
             },
             post(url, body, headers, cb) {
                 try {
@@ -65,7 +68,7 @@ const newsServices = () => {
                     });
 
                     xhr.addEventListener('error', () => {
-                        cb(`Error. Status code: ${xhr.status}`, xhr);            
+                        cb(`Error. Status code: ${xhr.status}`, xhr);
                     });
 
                     if (headers) {
@@ -76,11 +79,11 @@ const newsServices = () => {
 
                     xhr.send(JSON.stringify(body));
                 } catch(error) {
-                    cb(error);    
-                } 
+                    cb(error);
+                }
             }
         };
-    };     
+    };
 
     const http = customHttp();
 
@@ -89,11 +92,11 @@ const newsServices = () => {
         const apiUrl = 'https://newsapi.org/v2';
 
         return {
-            topHeadlines(country = 'ua', cb) {
-                http.get(`https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${apiKey}`, cb );
-            }, 
+            topHeadlines(country = 'ua', category = 'general', cb) {
+                http.get(`${apiUrl}/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}`, cb );
+            },
             everything(query, cb) {
-                http.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=${apiKey}`, cb );
+                http.get(`${apiUrl}/everything?q=${query}&apiKey=${apiKey}`, cb );
             }
         }
     })();
@@ -101,13 +104,13 @@ const newsServices = () => {
     const showSpinner = () => {
         if (!$spinner) return;
         $spinner.classList.add(CLASSES.active);
-        $postWrap.style.display = 'none';
+        $postWrap.classList.add(CLASSES.hidden);
     }
 
     const hideSpinner = () => {
         if (!$spinner) return;
         $spinner.classList.remove(CLASSES.active);
-        $postWrap.style.display = 'grid';
+        $postWrap.classList.remove(CLASSES.hidden);
     }
 
     const newsTemplate = (newsItem) => {
@@ -115,9 +118,10 @@ const newsServices = () => {
 
         return `
             <a href=${url || '#'} class="news_item">
-                <picture class="news_item__pic">
+                 <picture class="news_item__pic">
                     <img src=${urlToImage || 'assets/test.jpg'} alt=${title} class="news_item__img">
-                </picture>	
+                 </picture>
+                	
                 <div class="news_item__content">
                     <h4 class="news_item__title">${title || ''}</h4>
                     <p class="news_item__text">${description || ''}</p>
@@ -128,10 +132,10 @@ const newsServices = () => {
                 </div>
             </a>	
         `
-    } 
+    }
 
     const renderNews = (news) => {
-          
+
         if (!$postWrap) return;
 
         if ($postWrap.children.length) {
@@ -140,8 +144,8 @@ const newsServices = () => {
 
         let fragment = '';
 
-        news.forEach((newsItem) => {            
-            const el = newsTemplate(newsItem);          
+        news.forEach((newsItem) => {
+            const el = newsTemplate(newsItem);
             fragment += el;
         });
 
@@ -158,7 +162,7 @@ const newsServices = () => {
             $parentWrap.classList.remove('visible');
         }, 3500);
     }
-    
+
     const onGetResponse = (err, res) => {
         hideSpinner();
 
@@ -178,20 +182,20 @@ const newsServices = () => {
     const clearContainer = (container) => {
         container.innerHTML = '';
     }
-    
+
     const loadNews = () => {
         showSpinner();
-        const country = $select.value;        
-        const searchText = $search.value;        
+        const country = $selectCountry.value;
+        const category = $selectCategory.value;
+        const searchText = $search.value;
 
         if (!searchText) {
-            services.topHeadlines(country, onGetResponse);
+            services.topHeadlines(country, category, onGetResponse);
         } else {
             services.everything(searchText, onGetResponse);
-        }        
+        }
     }
-
     loadNews();
-}  
+}
 
 export default newsServices;

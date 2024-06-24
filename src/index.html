@@ -11,8 +11,8 @@
 
 <header class="header">
 	<div class="header__container">
-		<h1 class="header__title">NEWS</h1>	
-	</div>	
+		<h1 class="header__title">NEWS</h1>
+	</div>
 </header>
 
 <div class="wrapper">
@@ -20,25 +20,43 @@
 		<div class="news__message_wrap">
 			<div class="news__message js-news-message">Some error</div>
 		</div>
-		
+
 		<img style="display: none;" src='./img/test.jpg' alt='image'>
-		
+
 		<section class="section">
 			<div class="section__container">
 				<form name="newsPost" class="news__form">
 					<div class="news__title">Search news</div>
-					<label class="news__label">Choose your country</label>
-					<div class="news__select_wrap">
-						<select name="select" class="news__select js-select-country">
-							<option value="ua">Ukraine</option>	
-							<option value="us">Unated States</option>	
-						</select>	
+					<div class="news__select_container">
+						<div class="news__select_wrap">
+							<label class="news__label">Choose your country</label>
+							<div class="news__select_field">
+								<select name="select" class="news__select js-select-country">
+									<option value="ua">Ukraine</option>
+									<option value="us">Unated States</option>
+								</select>
+							</div>
+						</div>
+						<div class="news__select_wrap">
+							<label class="news__label">Choose category</label>
+							<div class="news__select_field">
+								<select name="select" class="news__select js-select-category">
+									<option value="general">All</option>
+									<option value="business">Business</option>
+									<option value="entertainment">Entertainment</option>
+									<option value="health">Health</option>
+									<option value="science">Science</option>
+									<option value="sports">Sports</option>
+									<option value="technology">Technology</option>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="news__input_wrap">
-						<input 
+						<input
 						type="text"
 						name="search"
-						placeholder="Search..."						
+						placeholder="Search..."
 						class="news__input form_input__element js-search"
 						>
 					</div>
@@ -48,16 +66,16 @@
 						</button>
 					</div>
 				</form>
-				
+
 				<div class="spinner__wrap js-spinner">
 					<div class="spinner"></div>
 				</div>
 
 				<div class="news__posts js-posts-wrap"></div>
-				
+
 			</div>
 		</section>
-		
+
 	</div>
 	<footer class="footer"></footer>
 </div>
